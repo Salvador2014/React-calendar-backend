@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const { dbConnection } = require('./database/config');
 require('dotenv').config();
@@ -33,6 +34,11 @@ app.use( express.json() );
 //Todo lo que ./routes/auth exporte lo habilite en la ruta /api/auth
 app.use('/api/auth', require('./routes/auth' )); //TODO: auth //crear, login, token
 app.use('/api/events', require('./routes/events' )); // todo lo de eventos
+
+
+app.use('*', (req, res) => {
+    res.sendFile( path.join( __dirname, 'public/index.html'));
+});
 
 
 //TODO: CRUD: Eventos
